@@ -1,6 +1,6 @@
 # Minamo Gizlilik Politikası / Privacy Policy
 
-**Sürüm / Version:** 1.2 · **Yürürlük / Effective:** 21 Ağustos 2026 / 21 August 2026
+**Sürüm / Version:** 1.3 · **Yürürlük / Effective:** 21 Ağustos 2026 / 21 August 2026
 **İletişim / Contact:** destek@hb4.aleeas.com
 
 [Türkçe](#türkçe) · [English](#english)
@@ -30,17 +30,21 @@ Uygulamanın sakladığı her şey telefonunuzun kendi uygulama alanındadır.
 gün ve o andaki saat dilimi farkı. Tanımladığınız bardaklar. Hedef geçmişiniz. Kapanmış günlerin
 mühürlenmiş sonucu.
 
-**Ayarlar:** günlük hedefiniz; verdiyseniz kilonuz, etkinlik düzeyiniz, iklim seçiminiz ve
-biyolojik cinsiyetiniz; hatırlatıcı tercihleri ve sessiz saat aralığı; tema, renk, birim ve dil
+**Ayarlar:** günlük hedefiniz; verdiyseniz kilonuz, etkinlik düzeyiniz, iklim seçiminiz,
+biyolojik cinsiyetiniz ve gebelik ya da emzirme durumunuz; hatırlatıcı tercihleri ve sessiz saat
+aralığı; tema, renk, birim ve dil
 tercihleri; seri, seviye ve kazanılmış rozetler.
 
 **Saklanmayanlar:** adınız, e-posta adresiniz, telefon numaranız, konumunuz, cihaz kimliğiniz ve
 reklam kimliğiniz. Bunların hiçbiri istenmez ve saklanmaz.
 
-Kilo ve biyolojik cinsiyet sağlık verisidir. Yalnızca günlük hedef önerisini hesaplamak için
-kullanılır ve Health Connect'e yazılmaz. Minamo bunları kendiliğinden hiçbir yere göndermez;
-yalnızca siz yedek dosyası oluşturursanız o dosyaya girerler ve yeni telefona geçerken sistemin
-cihazdan cihaza aktarımına dahil olurlar.
+Kilo, biyolojik cinsiyet ve gebelik ya da emzirme durumu sağlık verisidir. Yalnızca günlük
+hedef önerisini hesaplamak için kullanılır ve Health Connect'e yazılmaz. Minamo bunları
+kendiliğinden hiçbir yere göndermez; yalnızca siz yedek dosyası oluşturursanız o dosyaya girerler
+ve yeni telefona geçerken sistemin cihazdan cihaza aktarımına dahil olurlar.
+
+Yedek dosyası şifrelenmez ve bu üç alanı da taşır. Uygulama dosyayı yazmadan önce bunu üçünü de
+adıyla söyler, çünkü dosyayı nereye kaydedeceğinize o anda karar veriyorsunuz.
 
 ### Reklam, analitik ve izleme
 
@@ -169,17 +173,21 @@ Everything the app stores lives in your phone's own app storage.
 belongs to, and the time zone offset at that moment. The cups you set up. Your goal history. The
 sealed result of closed days.
 
-**Settings:** your daily goal; if you provided them, your weight, activity level, climate choice
-and biological sex; reminder preferences and quiet hours; theme, colour, unit and language
+**Settings:** your daily goal; if you provided them, your weight, activity level, climate
+choice, biological sex and pregnancy or breastfeeding status; reminder preferences and quiet
+hours; theme, colour, unit and language
 preferences; your streak, level and earned badges.
 
 **Not stored:** your name, email address, phone number, location, device ID or advertising ID.
 None of these are requested or kept.
 
-Weight and biological sex are health data. They are used only to calculate your suggested daily
-goal and are never written to Health Connect. Minamo never transmits them on its own; they are
-included in a backup file if you create one, and in the system's device-to-device transfer when
-you move to a new phone.
+Weight, biological sex and pregnancy or breastfeeding status are health data. They are used
+only to calculate your suggested daily goal and are never written to Health Connect. Minamo never
+transmits them on its own; they are included in a backup file if you create one, and in the
+system's device-to-device transfer when you move to a new phone.
+
+The backup file is not encrypted and carries all three. The app names all three before it writes
+the file, because that is the moment you decide where to save it.
 
 ### Ads, analytics and tracking
 
