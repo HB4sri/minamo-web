@@ -1,220 +1,249 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" class="yazi-bekliyor">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% if page.url == '/' %}Minamo{% else %}{{ page.title | default: 'Minamo' }}{% endif %}</title>
-<meta name="description" content="Minamo, su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok, internet izni yok.">
+<meta name="description" content="{{ page.aciklama | default: 'Minamo, su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok, internet izni yok.' }}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Minamo">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:title" content="{% if page.url == '/' %}Minamo{% else %}{{ page.title | default: 'Minamo' }}{% endif %}">
-<meta property="og:description" content="Minamo, su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok, internet izni yok.">
+<meta property="og:description" content="{{ page.aciklama | default: 'Minamo, su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok, internet izni yok.' }}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
-<meta name="theme-color" content="#0E86AB" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0A171E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230E86AB'/%3E%3Cpath d='M12 3.6C12 3.6 6.6 10 6.6 13.9C6.6 16.9 9 19.3 12 19.3C15 19.3 17.4 16.9 17.4 13.9C17.4 10 12 3.6 12 3.6Z' fill='%23fff'/%3E%3C/svg%3E">
+
+<!-- crossorigin SART, ayni kokende bile: yazi tipi istekleri anonim modda
+     gider ve bayraksiz on yukleme ESLESMEZ; tarayici dosyayi ikinci kez
+     indirir. Once govde yuzu (Bricolage), Sekuya yalniz h1'de. -->
+<link rel="preload" href="{{ '/yazitipi/bricolage-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/yazitipi/bricolage-latin-ext.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/yazitipi/sekuya-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/yazitipi/sekuya-latin-ext.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+
 <style>
+/* Tema hb4sri.com'un public/assets/style.css dosyasindan alinmistir: renkler,
+   olculer ve yazi tipleri ORADAN kopyalanir, burada turetilmez. Site paleti
+   degisirse bu blok elle guncellenir. */
+
+@font-face{font-family:'Sekuya';font-style:normal;font-weight:400;font-display:swap;src:url({{ '/yazitipi/sekuya-latin.woff2' | relative_url }}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Sekuya';font-style:normal;font-weight:400;font-display:swap;src:url({{ '/yazitipi/sekuya-latin-ext.woff2' | relative_url }}) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:200 800;font-display:swap;src:url({{ '/yazitipi/bricolage-latin.woff2' | relative_url }}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:200 800;font-display:swap;src:url({{ '/yazitipi/bricolage-latin-ext.woff2' | relative_url }}) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+/* Yazi tipleri hazir olana kadar sayfa gosterilmez; sinifi asagidaki betik
+   kaldirir. Gecko yazi tipi inerken metni HIC cizmiyor: kutular, cizgiler ve
+   zeminler geliyor, yazilar bir kare sonra topluca beliriyor. Blink yedek
+   yuzle cizdigi icin ayni hata orada gorunmez. Tek care sayfayi yuz gelene
+   kadar gizlemek. Kok ogenin zemini tarayici tuvaline aktarildigi icin
+   visibility beyaz parlama yapmaz.
+
+   Sinif HTML'de duruyor ama yalniz betik kosarsa anlam kazanir: betik hic
+   calismazsa asagidaki <noscript> kurali onu hemen iptal eder, yani JS
+   kapaliyken sayfa bugunku gibi gorunur. */
+.yazi-bekliyor{visibility:hidden}
+
 :root{
-  color-scheme: light dark;
-  --zemin:#F6FAFD;
-  --kagit:#FFFFFF;
-  --metin:#12303C;
-  --sonuk:#5C7683;
-  --cizgi:#DBE8EF;
-  --marka:#0E86AB;
-  --vurgu:#0A6A88;
-  --yumusak:#E6F3F9;
-  --olcu:40rem;
+  color-scheme:light;
+  --bg:#f5f5f5;
+  --surface:#ffffff;
+  --surface-2:#ebebeb;
+  --text:#313131;
+  --muted:#686868;
+  --line:#e5e5e5;
+  --line-strong:#787878;
+  --accent:#363636;
+  --shadow:0 14px 34px rgba(0,0,0,.10);
+  --olcu:820px;
 }
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme:dark){
   :root{
-    --zemin:#0A171E;
-    --kagit:#0F222B;
-    --metin:#DFEAF0;
-    --sonuk:#90A8B4;
-    --cizgi:#1D3742;
-    --marka:#56BEDE;
-    --vurgu:#7CD0EA;
-    --yumusak:#12303C;
+    color-scheme:dark;
+    --bg:#000000;
+    --surface:#141414;
+    --surface-2:#202020;
+    --text:#d7d7d7;
+    --muted:#9d9d9d;
+    --line:#1e1e1e;
+    --line-strong:#737373;
+    --accent:#d3d3d3;
+    --shadow:0 16px 36px rgba(0,0,0,.55);
   }
 }
 
-*,*::before,*::after{ box-sizing:border-box; }
-html{ -webkit-text-size-adjust:100%; }
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scrollbar-gutter:stable}
 body{
+  min-width:320px; min-height:100vh;
+  display:flex; flex-direction:column;
   margin:0;
-  background:var(--zemin);
-  color:var(--metin);
-  font-family: ui-sans-serif, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size:1.03rem;
-  line-height:1.75;
-  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Bricolage Grotesque',system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:400;
+  line-height:1.65;
 }
+main{flex:1}
 
-/* ---- ust cubuk ---- */
-.ust{
-  position:sticky; top:0; z-index:10;
-  background:var(--zemin);
-  border-bottom:1px solid var(--cizgi);
+/* ---- ust cubuk: seffaf ray, kapsul olan nav ---- */
+header{position:sticky;top:0;z-index:10;padding:14px 24px 6px}
+header nav{
+  width:max-content; max-width:100%; margin:auto;
+  min-height:56px;
+  display:flex; align-items:center; justify-content:space-between; gap:28px;
+  padding:6px 14px;
+  border:1px solid var(--line); border-radius:999px;
+  background:color-mix(in srgb,var(--surface) 68%,transparent);
+  backdrop-filter:blur(20px) saturate(1.8);
+  box-shadow:var(--shadow);
 }
-.ust-ic{
-  max-width:var(--olcu); margin-inline:auto;
-  padding:.75rem 1.25rem;
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-}
-.marka{
-  display:inline-flex; align-items:center; gap:.55rem;
-  font-weight:600; font-size:1.05rem; letter-spacing:-.01em;
-  color:var(--metin); text-decoration:none;
-}
-.marka svg{ width:26px; height:26px; border-radius:7px; display:block; flex:none; }
-.ust nav a{
-  font-size:.88rem; color:var(--sonuk); text-decoration:none;
-  padding:.3rem .1rem; border-bottom:1px solid transparent;
-}
-.ust nav a:hover{ color:var(--vurgu); border-bottom-color:var(--vurgu); }
+@supports not (backdrop-filter:blur(1px)){header nav{background:var(--surface)}}
+/* Marka isareti notr paletin DISINDA, bilerek: damla sayfanin degil
+   uygulamanin kimligi ve tema degisince renk degistirmemeli. */
+.marka{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:800}
+.marka svg{width:26px;height:26px;border-radius:7px;display:block;flex:none}
+header nav a.bag{color:var(--muted);text-decoration:none;font-size:.94rem}
+header nav a.bag:hover{color:var(--text);text-decoration:underline}
+header a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
 
 /* ---- govde ---- */
-.govde{
-  max-width:var(--olcu); margin-inline:auto;
-  padding:3rem 1.25rem 4rem;
-}
-.govde > :first-child{ margin-top:0; }
+.govde{width:min(var(--olcu),calc(100% - 32px));margin:auto;padding:44px 0 78px;font-size:1.02rem}
+.govde>:first-child{margin-top:0}
 
+h1,h2,h3,code{overflow-wrap:break-word}
 h1{
-  font-size:clamp(1.85rem,1.25rem + 2.1vw,2.5rem);
-  line-height:1.2; letter-spacing:-.022em; font-weight:650;
-  margin:0 0 1.1rem; text-wrap:balance;
+  font-family:'Sekuya',system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:400;
+  max-width:760px; margin:0;
+  font-size:clamp(2.2rem,5vw,3.55rem); line-height:1.3; letter-spacing:.03em;
 }
 h2{
-  font-size:clamp(1.3rem,1.1rem + .9vw,1.6rem);
-  line-height:1.3; letter-spacing:-.012em; font-weight:640;
-  margin:4.5rem 0 1.5rem; padding-top:1.5rem;
-  border-top:2px solid var(--cizgi);
-  scroll-margin-top:5rem;
+  font-size:clamp(1.4rem,3vw,1.9rem); line-height:1.22; letter-spacing:0;
+  font-weight:750;
+  margin:56px 0 0; padding-top:26px;
+  border-top:1px solid var(--line);
+  scroll-margin-top:88px;
 }
-h3{
-  font-size:1.04rem; font-weight:640; letter-spacing:.005em;
-  color:var(--vurgu);
-  margin:2.7rem 0 .6rem;
-  scroll-margin-top:5rem;
-}
-p{ margin:0 0 1.15rem; }
-strong{ font-weight:640; color:var(--metin); }
-a{
-  color:var(--vurgu);
-  text-decoration-thickness:1px; text-underline-offset:3px;
-}
-a:hover{ text-decoration-thickness:2px; }
-a:focus-visible{ outline:2px solid var(--marka); outline-offset:3px; border-radius:3px; }
-
-ul,ol{ margin:0 0 1.15rem; padding-left:1.35rem; }
-li{ margin:.35rem 0; }
-li::marker{ color:var(--marka); }
-
-hr{
-  border:0; height:1px; background:var(--cizgi);
-  margin:2.75rem 0;
-}
-
+h3{margin:30px 0 8px;line-height:1.25;font-size:1.12rem;font-weight:750;scroll-margin-top:88px}
+p{margin:0 0 14px}
+strong{font-weight:750}
+a{color:var(--accent);text-underline-offset:.18em}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
+ul{margin:0 0 14px;padding-left:1.3rem}
+li{margin:.3rem 0}
+hr{border:0;height:1px;background:var(--line);margin:34px 0}
 code{
-  font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+  font-family:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;
   font-size:.88em;
-  background:var(--yumusak); color:var(--vurgu);
-  padding:.12em .38em; border-radius:5px;
-  overflow-wrap:anywhere;
+  padding:.12em .36em;border-radius:6px;background:var(--surface-2);
 }
 
-/* ---- yalniz politika sayfasi: baslik altindaki iki paragraf ---- */
-.belge .govde > h1 + p{
-  margin:0 0 1.1rem;
-  padding:.9rem 1.05rem;
-  background:var(--yumusak);
-  border-radius:12px;
-  font-size:.9rem; line-height:1.65; color:var(--sonuk);
+/* ---- yalniz politika sayfasi ---- */
+/* Kaynakta surum ve iletisim ayri satirlardir; Markdown ikisini tek paragrafa
+   alir ve satir sonunu korur. pre-line, metne dokunmadan o satiri geri verir. */
+.belge .govde>h1+p{
+  margin:22px 0 14px; padding:14px 16px;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  font-size:.92rem; line-height:1.6; color:var(--muted);
   font-variant-numeric:tabular-nums;
-  /* Kaynakta surum ve iletisim ayri satirlardir; Markdown ikisini tek paragrafa
-     alir ve satir sonunu korur. pre-line, metne dokunmadan o satiri geri verir. */
   white-space:pre-line;
 }
-.belge .govde > h1 + p strong{ color:var(--metin); font-weight:600; }
-.belge .govde > h1 + p + p{
-  margin:0 0 .5rem;
-  font-size:.9rem; color:var(--sonuk);
+.belge .govde>h1+p strong{color:var(--text);font-weight:750}
+.belge .govde>h1+p+p{margin:0 0 6px;font-size:.92rem;color:var(--muted)}
+.belge .govde>h1+p+p a{
+  display:inline-block; padding:.3rem .85rem; margin:0 .1rem 0 0;
+  border:1px solid var(--line-strong); border-radius:999px;
+  background:var(--surface); color:var(--text); text-decoration:none;
 }
-.belge .govde > h1 + p + p a{
-  display:inline-block;
-  padding:.28rem .8rem; margin:0 .12rem;
-  border:1px solid var(--cizgi); border-radius:999px;
-  color:var(--vurgu); text-decoration:none;
-}
-.belge .govde > h1 + p + p a:hover{ border-color:var(--marka); background:var(--yumusak); }
-/* dil baslarindan hemen sonraki cizgi gereksiz kalir */
-.belge .govde > h1 + p + p + hr{ margin-top:1.5rem; }
+.belge .govde>h1+p+p a:hover{border-color:var(--text)}
+.belge .govde>h1+p+p+hr{margin-top:20px}
+/* Dil basliginin ustundeki cizgi, hemen once gelen <hr> ile ust uste
+   binerdi; oradaki ilk h2 kendi cizgisini birakir. */
+.belge .govde>hr+h2{border-top:0;padding-top:0;margin-top:34px}
 
 /* ---- giris sayfasi ---- */
-.giris .govde{ padding-top:4.5rem; }
-.giris .govde > h1 + p{
-  font-size:1.16rem; line-height:1.62; letter-spacing:-.004em;
-  margin-bottom:1rem;
-}
-.giris .govde > h1 + p + p{
-  font-size:.97rem; color:var(--sonuk);
-  margin-bottom:0;
-}
+.giris .govde{padding-top:64px}
+.giris .govde>h1+p{max-width:680px;color:var(--muted);font-size:1.04rem;margin:18px 0 14px}
+.giris .govde>h1+p+p{max-width:680px;color:var(--muted);font-size:1.04rem}
 .giris .govde ul{
-  list-style:none; padding:0;
-  margin:2.6rem 0 2.2rem;
-  display:flex; flex-direction:column; gap:.6rem;
+  list-style:none; padding:0; margin:34px 0 26px;
+  display:flex; flex-direction:column; gap:10px;
 }
-.giris .govde li{ margin:0; }
+.giris .govde li{margin:0}
 .giris .govde li a{
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-  padding:.9rem 1.15rem;
-  border:1px solid var(--cizgi); border-radius:12px;
-  background:var(--kagit); color:var(--metin);
-  font-weight:600; text-decoration:none;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  min-height:46px; padding:12px 18px;
+  border:1px solid var(--line); border-radius:12px;
+  background:var(--surface); color:var(--text);
+  font-weight:750; text-decoration:none;
+  box-shadow:var(--shadow);
 }
-.giris .govde li a::after{ content:"\2192"; color:var(--marka); font-weight:400; }
-.giris .govde li a:hover{ border-color:var(--marka); background:var(--yumusak); }
-.giris .govde > ul + p{ font-size:.92rem; color:var(--sonuk); }
+.giris .govde li a::after{content:"\2192";color:var(--muted);font-weight:400}
+.giris .govde li a:hover{border-color:var(--line-strong)}
+.giris .govde>ul+p{font-size:.94rem;color:var(--muted)}
 
-/* ---- alt ---- */
+/* ---- alt bilgi ---- */
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted)}
 .alt{
-  border-top:1px solid var(--cizgi);
-  background:var(--kagit);
+  width:min(var(--olcu),calc(100% - 32px));margin:auto;
+  display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;align-items:center;
+  font-size:.9rem;
 }
-.alt-ic{
-  max-width:var(--olcu); margin-inline:auto;
-  padding:1.5rem 1.25rem 2.5rem;
-  font-size:.86rem; color:var(--sonuk);
-  display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; align-items:baseline;
-}
-.alt-ic a{ color:var(--sonuk); }
-.alt-ic a:hover{ color:var(--vurgu); }
+.alt a{color:var(--muted)}
+.alt a:hover{color:var(--text)}
 
-@media (max-width:34rem){
-  body{ font-size:1rem; }
-  .govde{ padding:2.25rem 1.1rem 3rem; }
-  h2{ margin-top:3.25rem; }
+@media (max-width:600px){
+  .govde{padding:32px 0 56px}
+  .giris .govde{padding-top:40px}
+  header{padding:10px 14px 6px}
+  header nav{gap:16px}
 }
 
 @media print{
-  .ust,.alt{ display:none; }
-  body{ background:#fff; color:#000; font-size:10.5pt; line-height:1.5; }
-  .govde{ max-width:none; padding:0; }
-  h3{ color:#000; }
-  a{ color:#000; }
-  h2,h3{ break-after:avoid; }
+  header,footer{display:none}
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.5}
+  .govde{width:auto;max-width:none;padding:0}
+  a{color:#000}
+  h2,h3{break-after:avoid}
+  .belge .govde>h1+p{background:none;border:1px solid #999}
 }
 </style>
+<noscript><style>.yazi-bekliyor{visibility:visible}</style></noscript>
+<script>
+/* Yuzler gelene kadar sayfayi gizli tutar. Gizleme HTML'de aciktir ve BURADAN
+   kaldirilir: betik hic kosmazsa <noscript> devreye girer, kosar da hata
+   alirsa asagidaki uc yol da ayni sinifi kaldirir. Yani en kotu durumda sayfa
+   gorunur kalir, gizli degil.
+
+   document.fonts.load'a METIN vermek sart: metinsiz cagri yalnizca bosluk
+   karakterini kapsayan dosyayi indirir ve latin-ext disarida kalir. */
+(function () {
+  var kok = document.documentElement;
+  var acildi = false;
+  function ac() {
+    if (acildi) return;
+    acildi = true;
+    kok.className = kok.className.replace(/\byazi-bekliyor\b/g, '').trim();
+  }
+  if (!document.fonts || !document.fonts.load || !window.Promise) { ac(); return; }
+  try {
+    Promise.all([
+      document.fonts.load("400 1em 'Bricolage Grotesque'", 'Aağ'),
+      document.fonts.load("400 1em 'Sekuya'", 'AĞ')
+    ]).then(ac, ac);
+  } catch (e) { ac(); }
+  window.addEventListener('load', ac);
+  setTimeout(ac, 2000);
+})();
+</script>
 </head>
 <body class="{% if page.url contains 'gizlilik' %}belge{% else %}giris{% endif %}">
 
-<header class="ust">
-  <div class="ust-ic">
+<header>
+  <nav>
     <a class="marka" href="{{ '/' | relative_url }}">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <rect width="24" height="24" rx="5" fill="#0E86AB"/>
@@ -223,24 +252,21 @@ code{
       </svg>
       Minamo
     </a>
-    <nav>
-      {% if page.url contains 'gizlilik' %}
-      <a href="{{ '/' | relative_url }}">Ana sayfa</a>
-      {% else %}
-      <a href="{{ '/gizlilik' | relative_url }}">Gizlilik politikası</a>
-      {% endif %}
-    </nav>
-  </div>
+    {% if page.url contains 'gizlilik' %}
+    <a class="bag" href="{{ '/' | relative_url }}">Ana sayfa</a>
+    {% else %}
+    <a class="bag" href="{{ '/gizlilik' | relative_url }}">Gizlilik politikası</a>
+    {% endif %}
+  </nav>
 </header>
 
 <main class="govde">
 {{ content }}
 </main>
 
-<footer class="alt">
-  <div class="alt-ic">
-    <span>Minamo</span>
-    <span>Bağımsız geliştirici</span>
+<footer>
+  <div class="alt">
+    <span>Minamo · bağımsız geliştirici</span>
     <a href="mailto:destek@hb4.aleeas.com">destek@hb4.aleeas.com</a>
   </div>
 </footer>

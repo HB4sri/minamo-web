@@ -19,3 +19,15 @@ defaults:
       path: ""
     values:
       layout: default
+  # Politika sayfasinin kendi adresi ve arama aciklamasi da dosyaya
+  # dokunmadan buradan veriliyor. Adres UZANTISIZ sabitlendi: canonical ile
+  # baglantinin ayni adresi gostermesi gerekiyor, cunku Play Console'a tek
+  # bir adres verilecek.
+  - scope:
+      path: "gizlilik.md"
+    values:
+      permalink: /gizlilik/
+      aciklama: >-
+        Minamo gizlilik politikasi: sunucu yok, hesap yok, internet izni yok.
+        Veriler telefonda kalir; Health Connect, yedek dosyasi ve telefon
+        degistirme disinda cikmaz.
