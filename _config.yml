@@ -1,0 +1,21 @@
+title: Minamo
+description: >-
+  Su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok,
+  internet izni yok.
+
+# Site bir alt yolda duruyor. baseurl BOS BIRAKILAMAZ: bos kalirsa ust
+# cubuktaki "Ana sayfa" bagi hb4sri.github.io koklerine gider, minamo-web'e degil.
+url: https://hb4sri.github.io
+baseurl: /minamo-web
+
+lang: tr
+
+# Iki sayfa da duz Markdown'dir ve on bilgi (front matter) TASIMAZ.
+# Bunun sebebi var: gizlilik.md, Minamo deposundaki docs/index.md dosyasinin
+# BIREBIR kopyasidir. Dosyaya tek satir eklersek kopya bozulur ve politika iki
+# yerde farklilasabilir. Duzeni bu yuzden asagidaki varsayilan veriyor.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.url == '/' %}Minamo{% else %}{{ page.title | default: 'Minamo' }}{% endif %}</title>
+<meta name="description" content="Minamo, su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok, internet izni yok.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Minamo">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="{% if page.url == '/' %}Minamo{% else %}{{ page.title | default: 'Minamo' }}{% endif %}">
+<meta property="og:description" content="Minamo, su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok, internet izni yok.">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta name="theme-color" content="#0E86AB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A171E" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230E86AB'/%3E%3Cpath d='M12 3.6C12 3.6 6.6 10 6.6 13.9C6.6 16.9 9 19.3 12 19.3C15 19.3 17.4 16.9 17.4 13.9C17.4 10 12 3.6 12 3.6Z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+:root{
+  color-scheme: light dark;
+  --zemin:#F6FAFD;
+  --kagit:#FFFFFF;
+  --metin:#12303C;
+  --sonuk:#5C7683;
+  --cizgi:#DBE8EF;
+  --marka:#0E86AB;
+  --vurgu:#0A6A88;
+  --yumusak:#E6F3F9;
+  --olcu:40rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --zemin:#0A171E;
+    --kagit:#0F222B;
+    --metin:#DFEAF0;
+    --sonuk:#90A8B4;
+    --cizgi:#1D3742;
+    --marka:#56BEDE;
+    --vurgu:#7CD0EA;
+    --yumusak:#12303C;
+  }
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  background:var(--zemin);
+  color:var(--metin);
+  font-family: ui-sans-serif, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size:1.03rem;
+  line-height:1.75;
+  text-rendering:optimizeLegibility;
+}
+
+/* ---- ust cubuk ---- */
+.ust{
+  position:sticky; top:0; z-index:10;
+  background:var(--zemin);
+  border-bottom:1px solid var(--cizgi);
+}
+.ust-ic{
+  max-width:var(--olcu); margin-inline:auto;
+  padding:.75rem 1.25rem;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+}
+.marka{
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-weight:600; font-size:1.05rem; letter-spacing:-.01em;
+  color:var(--metin); text-decoration:none;
+}
+.marka svg{ width:26px; height:26px; border-radius:7px; display:block; flex:none; }
+.ust nav a{
+  font-size:.88rem; color:var(--sonuk); text-decoration:none;
+  padding:.3rem .1rem; border-bottom:1px solid transparent;
+}
+.ust nav a:hover{ color:var(--vurgu); border-bottom-color:var(--vurgu); }
+
+/* ---- govde ---- */
+.govde{
+  max-width:var(--olcu); margin-inline:auto;
+  padding:3rem 1.25rem 4rem;
+}
+.govde > :first-child{ margin-top:0; }
+
+h1{
+  font-size:clamp(1.85rem,1.25rem + 2.1vw,2.5rem);
+  line-height:1.2; letter-spacing:-.022em; font-weight:650;
+  margin:0 0 1.1rem; text-wrap:balance;
+}
+h2{
+  font-size:clamp(1.3rem,1.1rem + .9vw,1.6rem);
+  line-height:1.3; letter-spacing:-.012em; font-weight:640;
+  margin:4.5rem 0 1.5rem; padding-top:1.5rem;
+  border-top:2px solid var(--cizgi);
+  scroll-margin-top:5rem;
+}
+h3{
+  font-size:1.04rem; font-weight:640; letter-spacing:.005em;
+  color:var(--vurgu);
+  margin:2.7rem 0 .6rem;
+  scroll-margin-top:5rem;
+}
+p{ margin:0 0 1.15rem; }
+strong{ font-weight:640; color:var(--metin); }
+a{
+  color:var(--vurgu);
+  text-decoration-thickness:1px; text-underline-offset:3px;
+}
+a:hover{ text-decoration-thickness:2px; }
+a:focus-visible{ outline:2px solid var(--marka); outline-offset:3px; border-radius:3px; }
+
+ul,ol{ margin:0 0 1.15rem; padding-left:1.35rem; }
+li{ margin:.35rem 0; }
+li::marker{ color:var(--marka); }
+
+hr{
+  border:0; height:1px; background:var(--cizgi);
+  margin:2.75rem 0;
+}
+
+code{
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size:.88em;
+  background:var(--yumusak); color:var(--vurgu);
+  padding:.12em .38em; border-radius:5px;
+  overflow-wrap:anywhere;
+}
+
+/* ---- yalniz politika sayfasi: baslik altindaki iki paragraf ---- */
+.belge .govde > h1 + p{
+  margin:0 0 1.1rem;
+  padding:.9rem 1.05rem;
+  background:var(--yumusak);
+  border-radius:12px;
+  font-size:.9rem; line-height:1.65; color:var(--sonuk);
+  font-variant-numeric:tabular-nums;
+  /* Kaynakta surum ve iletisim ayri satirlardir; Markdown ikisini tek paragrafa
+     alir ve satir sonunu korur. pre-line, metne dokunmadan o satiri geri verir. */
+  white-space:pre-line;
+}
+.belge .govde > h1 + p strong{ color:var(--metin); font-weight:600; }
+.belge .govde > h1 + p + p{
+  margin:0 0 .5rem;
+  font-size:.9rem; color:var(--sonuk);
+}
+.belge .govde > h1 + p + p a{
+  display:inline-block;
+  padding:.28rem .8rem; margin:0 .12rem;
+  border:1px solid var(--cizgi); border-radius:999px;
+  color:var(--vurgu); text-decoration:none;
+}
+.belge .govde > h1 + p + p a:hover{ border-color:var(--marka); background:var(--yumusak); }
+/* dil baslarindan hemen sonraki cizgi gereksiz kalir */
+.belge .govde > h1 + p + p + hr{ margin-top:1.5rem; }
+
+/* ---- giris sayfasi ---- */
+.giris .govde{ padding-top:4.5rem; }
+.giris .govde > h1 + p{
+  font-size:1.16rem; line-height:1.62; letter-spacing:-.004em;
+  margin-bottom:1rem;
+}
+.giris .govde > h1 + p + p{
+  font-size:.97rem; color:var(--sonuk);
+  margin-bottom:0;
+}
+.giris .govde ul{
+  list-style:none; padding:0;
+  margin:2.6rem 0 2.2rem;
+  display:flex; flex-direction:column; gap:.6rem;
+}
+.giris .govde li{ margin:0; }
+.giris .govde li a{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:.9rem 1.15rem;
+  border:1px solid var(--cizgi); border-radius:12px;
+  background:var(--kagit); color:var(--metin);
+  font-weight:600; text-decoration:none;
+}
+.giris .govde li a::after{ content:"\2192"; color:var(--marka); font-weight:400; }
+.giris .govde li a:hover{ border-color:var(--marka); background:var(--yumusak); }
+.giris .govde > ul + p{ font-size:.92rem; color:var(--sonuk); }
+
+/* ---- alt ---- */
+.alt{
+  border-top:1px solid var(--cizgi);
+  background:var(--kagit);
+}
+.alt-ic{
+  max-width:var(--olcu); margin-inline:auto;
+  padding:1.5rem 1.25rem 2.5rem;
+  font-size:.86rem; color:var(--sonuk);
+  display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; align-items:baseline;
+}
+.alt-ic a{ color:var(--sonuk); }
+.alt-ic a:hover{ color:var(--vurgu); }
+
+@media (max-width:34rem){
+  body{ font-size:1rem; }
+  .govde{ padding:2.25rem 1.1rem 3rem; }
+  h2{ margin-top:3.25rem; }
+}
+
+@media print{
+  .ust,.alt{ display:none; }
+  body{ background:#fff; color:#000; font-size:10.5pt; line-height:1.5; }
+  .govde{ max-width:none; padding:0; }
+  h3{ color:#000; }
+  a{ color:#000; }
+  h2,h3{ break-after:avoid; }
+}
+</style>
+</head>
+<body class="{% if page.url contains 'gizlilik' %}belge{% else %}giris{% endif %}">
+
+<header class="ust">
+  <div class="ust-ic">
+    <a class="marka" href="{{ '/' | relative_url }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect width="24" height="24" rx="5" fill="#0E86AB"/>
+        <path d="M12,3.6 C12,3.6 6.6,10 6.6,13.9 C6.6,16.9 9,19.3 12,19.3 C15,19.3 17.4,16.9 17.4,13.9 C17.4,10 12,3.6 12,3.6 Z" fill="#FFFFFF"/>
+        <path d="M12,17.1 C10.3,17.1 8.9,15.9 8.6,14.3 C8.5,13.9 8.8,13.6 9.2,13.7 C10.1,14.1 11,14.4 12,14.4 C13,14.4 13.9,14.1 14.8,13.7 C15.2,13.6 15.5,13.9 15.4,14.3 C15.1,15.9 13.7,17.1 12,17.1 Z" fill="#B3E5FC"/>
+      </svg>
+      Minamo
+    </a>
+    <nav>
+      {% if page.url contains 'gizlilik' %}
+      <a href="{{ '/' | relative_url }}">Ana sayfa</a>
+      {% else %}
+      <a href="{{ '/gizlilik' | relative_url }}">Gizlilik politikası</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main class="govde">
+{{ content }}
+</main>
+
+<footer class="alt">
+  <div class="alt-ic">
+    <span>Minamo</span>
+    <span>Bağımsız geliştirici</span>
+    <a href="mailto:destek@hb4.aleeas.com">destek@hb4.aleeas.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

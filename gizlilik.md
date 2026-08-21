@@ -1,6 +1,6 @@
 # Minamo Gizlilik Politikası / Privacy Policy
 
-**Sürüm / Version:** 1.1 · **Yürürlük / Effective:** 20 Ağustos 2026 / 20 August 2026
+**Sürüm / Version:** 1.2 · **Yürürlük / Effective:** 21 Ağustos 2026 / 21 August 2026
 **İletişim / Contact:** destek@hb4.aleeas.com
 
 [Türkçe](#türkçe) · [English](#english)
@@ -20,7 +20,7 @@ Bu politika, Minamo (paket adı `com.hb4sri.minamo`) Android uygulaması için g
 ### Sorumlu
 
 Minamo'yu bağımsız bir geliştirici olarak tek başıma yapıyorum; arkasında bir şirket yok.
-Sorularınız ve talepleriniz için bana yazabilirsiniz: **hb4sri@outlook.com**
+Sorularınız ve talepleriniz için bana yazabilirsiniz: **destek@hb4.aleeas.com**
 
 ### Telefonunuzda ne saklanıyor
 
@@ -142,7 +142,7 @@ davranışını değiştiren bir güncelleme yayımlanırsa politika aynı sür�
 
 ### İletişim
 
-**hb4sri@outlook.com**
+**destek@hb4.aleeas.com**
 
 ---
 
@@ -159,7 +159,7 @@ This policy applies to the Minamo Android app (package `com.hb4sri.minamo`).
 ### Who is responsible
 
 I make Minamo on my own, as an independent developer; there is no company behind it. For
-questions and requests, you can write to me: **hb4sri@outlook.com**
+questions and requests, you can write to me: **destek@hb4.aleeas.com**
 
 ### What is stored on your phone
 
@@ -281,4 +281,4 @@ update changes data behaviour, the policy is updated in the same release.
 
 ### Contact
 
-**hb4sri@outlook.com**
+**destek@hb4.aleeas.com**

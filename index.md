@@ -1,7 +1,9 @@
 # Minamo
 
-Su takip uygulamasi. Hesap yok, reklam yok, internet izni yok.
+Su içtiğinizi olabildiğince az uğraşla kaydetmeniz için yaptığım bir Android uygulaması. Hesap istemez, reklam göstermez ve internet izni yoktur; kaydettikleriniz telefonunuzda kalır.
 
-- [Gizlilik Politikasi / Privacy Policy](gizlilik)
+An Android app I built so you can log the water you drink with as little fuss as possible. No account, no ads, no internet permission; what you log stays on your phone.
 
-Destek: destek@hb4.aleeas.com
+- [Gizlilik Politikası / Privacy Policy](gizlilik)
+
+Destek / Contact: [destek@hb4.aleeas.com](mailto:destek@hb4.aleeas.com)
