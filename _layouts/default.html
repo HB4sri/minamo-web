@@ -16,210 +16,142 @@
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230E86AB'/%3E%3Cpath d='M12 3.6C12 3.6 6.6 10 6.6 13.9C6.6 16.9 9 19.3 12 19.3C15 19.3 17.4 16.9 17.4 13.9C17.4 10 12 3.6 12 3.6Z' fill='%23fff'/%3E%3C/svg%3E">
 
-<!-- crossorigin SART, ayni kokende bile: yazi tipi istekleri anonim modda
-     gider ve bayraksiz on yukleme ESLESMEZ; tarayici dosyayi ikinci kez
-     indirir. Once govde yuzu (Bricolage), Sekuya yalniz h1'de. -->
+<!-- crossorigin sart, ayni kokende bile: yazi tipi istekleri anonim modda
+     gider ve bayraksiz on yukleme eslesmez, dosya ikinci kez inerdi.
+     Sekuya yalniz "Minamo" yaziyor, latin-ext'i on yuklenmiyor. -->
 <link rel="preload" href="{{ '/yazitipi/bricolage-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ '/yazitipi/bricolage-latin-ext.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ '/yazitipi/sekuya-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ '/yazitipi/sekuya-latin-ext.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 
 <style>
-/* Tema hb4sri.com'un public/assets/style.css dosyasindan alinmistir: renkler,
-   olculer ve yazi tipleri ORADAN kopyalanir, burada turetilmez. Site paleti
-   degisirse bu blok elle guncellenir. */
-
 @font-face{font-family:'Sekuya';font-style:normal;font-weight:400;font-display:swap;src:url({{ '/yazitipi/sekuya-latin.woff2' | relative_url }}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Sekuya';font-style:normal;font-weight:400;font-display:swap;src:url({{ '/yazitipi/sekuya-latin-ext.woff2' | relative_url }}) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:200 800;font-display:swap;src:url({{ '/yazitipi/bricolage-latin.woff2' | relative_url }}) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:200 800;font-display:swap;src:url({{ '/yazitipi/bricolage-latin-ext.woff2' | relative_url }}) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 
-/* Yazi tipleri hazir olana kadar sayfa gosterilmez; sinifi asagidaki betik
-   kaldirir. Gecko yazi tipi inerken metni HIC cizmiyor: kutular, cizgiler ve
-   zeminler geliyor, yazilar bir kare sonra topluca beliriyor. Blink yedek
-   yuzle cizdigi icin ayni hata orada gorunmez. Tek care sayfayi yuz gelene
-   kadar gizlemek. Kok ogenin zemini tarayici tuvaline aktarildigi icin
-   visibility beyaz parlama yapmaz.
-
-   Sinif HTML'de duruyor ama yalniz betik kosarsa anlam kazanir: betik hic
-   calismazsa asagidaki <noscript> kurali onu hemen iptal eder, yani JS
-   kapaliyken sayfa bugunku gibi gorunur. */
+/* Gecko yazi tipi inerken metni hic cizmez: zeminler gelir, yazilar bir kare
+   sonra topluca belirir. Sayfa yuzler hazir olana kadar gizli tutulur;
+   sinifi asagidaki betik kaldirir, betik kosmazsa <noscript> iptal eder. */
 .yazi-bekliyor{visibility:hidden}
 
 :root{
   color-scheme:light;
   --bg:#f5f5f5;
-  --surface:#ffffff;
-  --surface-2:#ebebeb;
-  --text:#313131;
-  --muted:#686868;
-  --line:#e5e5e5;
-  --line-strong:#787878;
-  --accent:#363636;
-  --shadow:0 14px 34px rgba(0,0,0,.10);
-  --olcu:820px;
+  --yuzey:#ffffff;
+  --metin:#313131;
+  --sonuk:#686868;
+  --cizgi:#d8d8d8;
+  --olcu:760px;
 }
 @media (prefers-color-scheme:dark){
   :root{
     color-scheme:dark;
     --bg:#000000;
-    --surface:#141414;
-    --surface-2:#202020;
-    --text:#d7d7d7;
-    --muted:#9d9d9d;
-    --line:#1e1e1e;
-    --line-strong:#737373;
-    --accent:#d3d3d3;
-    --shadow:0 16px 36px rgba(0,0,0,.55);
+    --yuzey:#141414;
+    --metin:#d7d7d7;
+    --sonuk:#9d9d9d;
+    --cizgi:#2a2a2a;
   }
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scrollbar-gutter:stable}
+html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
 body{
   min-width:320px; min-height:100vh;
   display:flex; flex-direction:column;
   margin:0;
   background:var(--bg);
-  color:var(--text);
+  color:var(--metin);
   font-family:'Bricolage Grotesque',system-ui,-apple-system,"Segoe UI",sans-serif;
-  font-weight:400;
   line-height:1.65;
 }
 main{flex:1}
+.kap{width:min(var(--olcu),calc(100% - 40px));margin-inline:auto}
 
-/* ---- ust cubuk: seffaf ray, kapsul olan nav ---- */
-header{position:sticky;top:0;z-index:10;padding:14px 24px 6px}
-header nav{
-  width:max-content; max-width:100%; margin:auto;
-  min-height:56px;
-  display:flex; align-items:center; justify-content:space-between; gap:28px;
-  padding:6px 14px;
-  border:1px solid var(--line); border-radius:999px;
-  background:color-mix(in srgb,var(--surface) 68%,transparent);
-  backdrop-filter:blur(20px) saturate(1.8);
-  box-shadow:var(--shadow);
+a{color:inherit;text-underline-offset:.18em}
+a:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:2px}
+
+header{padding:30px 0 0}
+header .kap{display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+.marka{
+  font-family:'Sekuya',system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:1.15rem; letter-spacing:.05em;
+  text-decoration:none;
 }
-@supports not (backdrop-filter:blur(1px)){header nav{background:var(--surface)}}
-/* Marka isareti notr paletin DISINDA, bilerek: damla sayfanin degil
-   uygulamanin kimligi ve tema degisince renk degistirmemeli. */
-.marka{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:800}
-.marka svg{width:26px;height:26px;border-radius:7px;display:block;flex:none}
-header nav a.bag{color:var(--muted);text-decoration:none;font-size:.94rem}
-header nav a.bag:hover{color:var(--text);text-decoration:underline}
-header a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+header nav a{font-size:.92rem;color:var(--sonuk);text-decoration:none}
+header nav a:hover{color:var(--metin);text-decoration:underline}
 
-/* ---- govde ---- */
-.govde{width:min(var(--olcu),calc(100% - 32px));margin:auto;padding:44px 0 78px;font-size:1.02rem}
+.govde{padding:52px 0 72px}
 .govde>:first-child{margin-top:0}
 
 h1,h2,h3,code{overflow-wrap:break-word}
-h1{
-  font-family:'Sekuya',system-ui,-apple-system,"Segoe UI",sans-serif;
-  font-weight:400;
-  max-width:760px; margin:0;
-  font-size:clamp(2.2rem,5vw,3.55rem); line-height:1.3; letter-spacing:.03em;
-}
-h2{
-  font-size:clamp(1.4rem,3vw,1.9rem); line-height:1.22; letter-spacing:0;
-  font-weight:750;
-  margin:56px 0 0; padding-top:26px;
-  border-top:1px solid var(--line);
-  scroll-margin-top:88px;
-}
-h3{margin:30px 0 8px;line-height:1.25;font-size:1.12rem;font-weight:750;scroll-margin-top:88px}
+h1{margin:0;font-size:clamp(1.9rem,1.45rem + 1.8vw,2.5rem);line-height:1.22;letter-spacing:-.018em;font-weight:700;text-wrap:balance}
+h2{margin:52px 0 0;padding-top:22px;border-top:1px solid var(--cizgi);font-size:1.45rem;line-height:1.25;letter-spacing:-.012em;font-weight:700}
+h3{margin:32px 0 6px;font-size:1.05rem;line-height:1.3;font-weight:700}
 p{margin:0 0 14px}
-strong{font-weight:750}
-a{color:var(--accent);text-underline-offset:.18em}
-a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
-ul{margin:0 0 14px;padding-left:1.3rem}
+strong{font-weight:700}
+ul{margin:0 0 14px;padding-left:1.25rem}
 li{margin:.3rem 0}
-hr{border:0;height:1px;background:var(--line);margin:34px 0}
+hr{border:0;height:1px;background:var(--cizgi);margin:32px 0}
 code{
   font-family:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;
   font-size:.88em;
-  padding:.12em .36em;border-radius:6px;background:var(--surface-2);
+  padding:.1em .3em;border-radius:3px;
+  background:var(--yuzey);border:1px solid var(--cizgi);
 }
 
-/* ---- yalniz politika sayfasi ---- */
 /* Kaynakta surum ve iletisim ayri satirlardir; Markdown ikisini tek paragrafa
-   alir ve satir sonunu korur. pre-line, metne dokunmadan o satiri geri verir. */
+   alir ve satir sonunu korur, pre-line o satiri geri verir. */
 .belge .govde>h1+p{
-  margin:22px 0 14px; padding:14px 16px;
-  background:var(--surface); border:1px solid var(--line); border-radius:12px;
-  font-size:.92rem; line-height:1.6; color:var(--muted);
+  margin:16px 0 8px;
+  font-size:.92rem;line-height:1.6;color:var(--sonuk);
   font-variant-numeric:tabular-nums;
   white-space:pre-line;
 }
-.belge .govde>h1+p strong{color:var(--text);font-weight:750}
-.belge .govde>h1+p+p{margin:0 0 6px;font-size:.92rem;color:var(--muted)}
-.belge .govde>h1+p+p a{
-  display:inline-block; padding:.3rem .85rem; margin:0 .1rem 0 0;
-  border:1px solid var(--line-strong); border-radius:999px;
-  background:var(--surface); color:var(--text); text-decoration:none;
-}
-.belge .govde>h1+p+p a:hover{border-color:var(--text)}
-.belge .govde>h1+p+p+hr{margin-top:20px}
-/* Dil basliginin ustundeki cizgi, hemen once gelen <hr> ile ust uste
-   binerdi; oradaki ilk h2 kendi cizgisini birakir. */
-.belge .govde>hr+h2{border-top:0;padding-top:0;margin-top:34px}
+.belge .govde>h1+p strong{color:var(--metin);font-weight:600}
+.belge .govde>h1+p+p{margin:0;font-size:.92rem;color:var(--sonuk)}
+.belge .govde>h1+p+p+hr{margin-top:22px}
+/* Ilk dil basligi, hemen ustundeki <hr> ile ikinci bir cizgi cikarmasin. */
+.belge .govde>hr+h2{border-top:0;padding-top:0;margin-top:32px}
 
-/* ---- giris sayfasi ---- */
-.giris .govde{padding-top:64px}
-.giris .govde>h1+p{max-width:680px;color:var(--muted);font-size:1.04rem;margin:18px 0 14px}
-.giris .govde>h1+p+p{max-width:680px;color:var(--muted);font-size:1.04rem}
-.giris .govde ul{
-  list-style:none; padding:0; margin:34px 0 26px;
-  display:flex; flex-direction:column; gap:10px;
+.giris .govde{padding-top:76px}
+.giris h1{
+  font-family:'Sekuya',system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:400;letter-spacing:.04em;line-height:1.3;
+  font-size:clamp(2.1rem,1.6rem + 2.2vw,2.9rem);
 }
+.giris .govde>h1+p{margin:22px 0 14px}
+.giris .govde>h1+p+p{color:var(--sonuk)}
+.giris .govde ul{list-style:none;padding:0;margin:34px 0 24px}
 .giris .govde li{margin:0}
-.giris .govde li a{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  min-height:46px; padding:12px 18px;
-  border:1px solid var(--line); border-radius:12px;
-  background:var(--surface); color:var(--text);
-  font-weight:750; text-decoration:none;
-  box-shadow:var(--shadow);
-}
-.giris .govde li a::after{content:"\2192";color:var(--muted);font-weight:400}
-.giris .govde li a:hover{border-color:var(--line-strong)}
-.giris .govde>ul+p{font-size:.94rem;color:var(--muted)}
+.giris .govde li a{font-weight:600;text-decoration-thickness:1px}
+.giris .govde li a::after{content:" \2192";color:var(--sonuk)}
+.giris .govde>ul+p{font-size:.94rem;color:var(--sonuk)}
 
-/* ---- alt bilgi ---- */
-footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted)}
-.alt{
-  width:min(var(--olcu),calc(100% - 32px));margin:auto;
-  display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;align-items:center;
-  font-size:.9rem;
-}
-.alt a{color:var(--muted)}
-.alt a:hover{color:var(--text)}
+footer{margin-top:56px;border-top:1px solid var(--cizgi);padding:20px 0 40px;color:var(--sonuk);font-size:.88rem}
 
 @media (max-width:600px){
-  .govde{padding:32px 0 56px}
-  .giris .govde{padding-top:40px}
-  header{padding:10px 14px 6px}
-  header nav{gap:16px}
+  header{padding-top:22px}
+  .govde{padding:36px 0 52px}
+  .giris .govde{padding-top:48px}
+  h2{margin-top:40px}
 }
 
 @media print{
   header,footer{display:none}
   body{background:#fff;color:#000;font-size:10.5pt;line-height:1.5}
-  .govde{width:auto;max-width:none;padding:0}
-  a{color:#000}
+  .kap{width:auto}
+  .govde{padding:0}
   h2,h3{break-after:avoid}
-  .belge .govde>h1+p{background:none;border:1px solid #999}
 }
 </style>
 <noscript><style>.yazi-bekliyor{visibility:visible}</style></noscript>
 <script>
-/* Yuzler gelene kadar sayfayi gizli tutar. Gizleme HTML'de aciktir ve BURADAN
-   kaldirilir: betik hic kosmazsa <noscript> devreye girer, kosar da hata
-   alirsa asagidaki uc yol da ayni sinifi kaldirir. Yani en kotu durumda sayfa
-   gorunur kalir, gizli degil.
-
-   document.fonts.load'a METIN vermek sart: metinsiz cagri yalnizca bosluk
-   karakterini kapsayan dosyayi indirir ve latin-ext disarida kalir. */
+/* Gizleme HTML'de acik, buradan kaldiriliyor: betik hata alsa da asagidaki uc
+   yoldan biri sayfayi acar. document.fonts.load'a metin vermek sart, metinsiz
+   cagri yalnizca bosluk karakterini kapsayan dosyayi indirir. */
 (function () {
   var kok = document.documentElement;
   var acildi = false;
@@ -232,7 +164,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted)}
   try {
     Promise.all([
       document.fonts.load("400 1em 'Bricolage Grotesque'", 'Aağ'),
-      document.fonts.load("400 1em 'Sekuya'", 'AĞ')
+      document.fonts.load("400 1em 'Sekuya'", 'Minamo')
     ]).then(ac, ac);
   } catch (e) { ac(); }
   window.addEventListener('load', ac);
@@ -242,33 +174,25 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted)}
 </head>
 <body class="{% if page.url contains 'gizlilik' %}belge{% else %}giris{% endif %}">
 
+{% comment %}
+Giris sayfasinda ust cubuk yok: adi zaten h1 soyluyor, politika bagi da
+govdede duruyor. Ikisini de tekrarlamak icin ayri bir serit gerekmiyor.
+{% endcomment %}
+{% if page.url contains 'gizlilik' %}
 <header>
-  <nav>
-    <a class="marka" href="{{ '/' | relative_url }}">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <rect width="24" height="24" rx="5" fill="#0E86AB"/>
-        <path d="M12,3.6 C12,3.6 6.6,10 6.6,13.9 C6.6,16.9 9,19.3 12,19.3 C15,19.3 17.4,16.9 17.4,13.9 C17.4,10 12,3.6 12,3.6 Z" fill="#FFFFFF"/>
-        <path d="M12,17.1 C10.3,17.1 8.9,15.9 8.6,14.3 C8.5,13.9 8.8,13.6 9.2,13.7 C10.1,14.1 11,14.4 12,14.4 C13,14.4 13.9,14.1 14.8,13.7 C15.2,13.6 15.5,13.9 15.4,14.3 C15.1,15.9 13.7,17.1 12,17.1 Z" fill="#B3E5FC"/>
-      </svg>
-      Minamo
-    </a>
-    {% if page.url contains 'gizlilik' %}
-    <a class="bag" href="{{ '/' | relative_url }}">Ana sayfa</a>
-    {% else %}
-    <a class="bag" href="{{ '/gizlilik' | relative_url }}">Gizlilik politikası</a>
-    {% endif %}
-  </nav>
+  <div class="kap">
+    <a class="marka" href="{{ '/' | relative_url }}">Minamo</a>
+    <nav><a href="{{ '/' | relative_url }}">Ana sayfa</a></nav>
+  </div>
 </header>
+{% endif %}
 
-<main class="govde">
+<main class="kap govde">
 {{ content }}
 </main>
 
 <footer>
-  <div class="alt">
-    <span>Minamo · bağımsız geliştirici</span>
-    <a href="mailto:destek@hb4.aleeas.com">destek@hb4.aleeas.com</a>
-  </div>
+  <div class="kap">Minamo · bağımsız geliştirici</div>
 </footer>
 
 </body>

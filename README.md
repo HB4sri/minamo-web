@@ -31,9 +31,9 @@ Politika değişince kaynak dosya güncellenir ve buraya olduğu gibi kopyalanı
 
 ## Tema
 
-Görünüm hb4sri.com ile aynı olacak şekilde kurulmuştur: renkler, ölçüler ve
-yazı tipleri o sitenin biçem dosyasından alınmıştır. Sayfa hiçbir dış kaynağa
-istek atmaz; yazı tipleri de burada barındırılır.
+Düzenin tamamı `_layouts/default.html` içinde: tek bir stil bloğu, tek bir
+küçük betik. Sayfa hiçbir dış kaynağa istek atmaz, yazı tipleri burada
+barındırılır. Renk paleti hb4sri.com ile ortaktır.
 
 ## Yazı tipleri
 

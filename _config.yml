@@ -3,26 +3,21 @@ description: >-
   Su icme takibi icin bir Android uygulamasi. Hesap yok, reklam yok,
   internet izni yok.
 
-# Site bir alt yolda duruyor. baseurl BOS BIRAKILAMAZ: bos kalirsa ust
-# cubuktaki "Ana sayfa" bagi hb4sri.github.io koklerine gider, minamo-web'e degil.
+# baseurl bos birakilamaz: bos kalirsa sayfa ici baglar hb4sri.github.io
+# koklerine gider, minamo-web'e degil.
 url: https://hb4sri.github.io
 baseurl: /minamo-web
 
 lang: tr
 
-# Iki sayfa da duz Markdown'dir ve on bilgi (front matter) TASIMAZ.
-# Bunun sebebi var: gizlilik.md, Minamo deposundaki docs/index.md dosyasinin
-# BIREBIR kopyasidir. Dosyaya tek satir eklersek kopya bozulur ve politika iki
-# yerde farklilasabilir. Duzeni bu yuzden asagidaki varsayilan veriyor.
+# gizlilik.md, uygulama deposundaki docs/index.md ile birebir ayni kalsin
+# diye on bilgi (front matter) tasimaz. Sayfaya ne gerekiyorsa buradan verilir.
 defaults:
   - scope:
       path: ""
     values:
       layout: default
-  # Politika sayfasinin kendi adresi ve arama aciklamasi da dosyaya
-  # dokunmadan buradan veriliyor. Adres UZANTISIZ sabitlendi: canonical ile
-  # baglantinin ayni adresi gostermesi gerekiyor, cunku Play Console'a tek
-  # bir adres verilecek.
+  # Play Console'a tek bir adres verilecegi icin adres uzantisiz sabit.
   - scope:
       path: "gizlilik.md"
     values:
